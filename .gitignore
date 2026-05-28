@@ -1,0 +1,18 @@
+# Hugo 构建产物
+public/
+resources/
+.hugo_build.lock
+
+# 主题（GitHub Actions 会在构建时拉取）
+themes/
+
+# 系统 / 编辑器
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+*.log
+
+# Node（如果以后加了 npm 工具链）
+node_modules/
