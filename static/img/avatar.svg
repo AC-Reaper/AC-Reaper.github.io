@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <defs>
+    <!-- 暖色调渐变，跟 Stack/Linear/Vercel 风格接近 -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#7C3AED"/>
+      <stop offset="55%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <radialGradient id="shine" cx="30%" cy="25%" r="60%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="60%"  stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 圆形底 -->
+  <circle cx="120" cy="120" r="120" fill="url(#bg)"/>
+  <!-- 高光叠加，立体感 -->
+  <circle cx="120" cy="120" r="120" fill="url(#shine)"/>
+
+  <!-- 字母 E -->
+  <text x="120" y="120"
+        font-family="ui-sans-serif, system-ui, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif"
+        font-size="138" font-weight="700"
+        fill="#ffffff"
+        text-anchor="middle" dominant-baseline="central"
+        letter-spacing="-4">E</text>
+</svg>

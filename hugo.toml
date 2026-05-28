@@ -47,23 +47,18 @@ pagination.pagerSize = 10
     title        = "Eric's Blog"
     [languages.zh.params]
       description = "Eric 的个人博客 · 不定期分享生活与技术"
+      # 关掉 profileMode，改用 homeInfoMode（首页会自动列出最新文章）
       [languages.zh.params.profileMode]
-        enabled = true
-        title   = "Hi, 我是 Eric 👋"
-        subtitle = "这里是我不定期分享生活与技术的小角落。"
-        imageUrl = ""
-        imageTitle = "头像"
-        imageWidth = 120
-        imageHeight = 120
-        [[languages.zh.params.profileMode.buttons]]
-          name = "文章"
-          url  = "posts/"
-        [[languages.zh.params.profileMode.buttons]]
-          name = "归档"
-          url  = "archives/"
-        [[languages.zh.params.profileMode.buttons]]
-          name = "关于"
-          url  = "about/"
+        enabled = false
+      [languages.zh.params.homeInfoParams]
+        Title = "👋 Hi, 我是 Eric"
+        Content = """
+<div class="home-intro">
+  <img src="/img/avatar.svg" alt="Eric" class="home-avatar" />
+  <p class="home-tagline">这里是我不定期分享生活与技术的小角落。<br/>
+  最近的胡思乱想、踩到的坑、读到的书，都丢在这里。</p>
+</div>
+"""
 
     [languages.zh.menu]
       [[languages.zh.menu.main]]
@@ -88,7 +83,7 @@ pagination.pagerSize = 10
         weight = 40
       [[languages.zh.menu.main]]
         identifier = "search"
-        name = "🔍"
+        name = "搜索"
         url  = "/search/"
         weight = 50
 
@@ -101,22 +96,16 @@ pagination.pagerSize = 10
     [languages.en.params]
       description = "Eric's personal blog — occasional notes on life and tech."
       [languages.en.params.profileMode]
-        enabled = true
-        title   = "Hi, I'm Eric 👋"
-        subtitle = "A small corner where I jot down notes on life and tech."
-        imageUrl = ""
-        imageTitle = "Avatar"
-        imageWidth = 120
-        imageHeight = 120
-        [[languages.en.params.profileMode.buttons]]
-          name = "Posts"
-          url  = "posts/"
-        [[languages.en.params.profileMode.buttons]]
-          name = "Archives"
-          url  = "archives/"
-        [[languages.en.params.profileMode.buttons]]
-          name = "About"
-          url  = "about/"
+        enabled = false
+      [languages.en.params.homeInfoParams]
+        Title = "👋 Hi, I'm Eric"
+        Content = """
+<div class="home-intro">
+  <img src="/img/avatar.svg" alt="Eric" class="home-avatar" />
+  <p class="home-tagline">A small corner where I jot down notes on life and tech.<br/>
+  Random thoughts, sharp edges, books I'm reading — all ending up here.</p>
+</div>
+"""
 
     [languages.en.menu]
       [[languages.en.menu.main]]
@@ -141,7 +130,7 @@ pagination.pagerSize = 10
         weight = 40
       [[languages.en.menu.main]]
         identifier = "search"
-        name = "🔍"
+        name = "Search"
         url  = "/en/search/"
         weight = 50
 
@@ -166,9 +155,7 @@ pagination.pagerSize = 10
   hideMeta = false
   hideSummary = false
 
-  [params.homeInfoParams]
-    Title = "Eric's Blog"
-    Content = "欢迎 — Welcome"
+  # 注意：homeInfoParams 已经定义在每个语言下，这里全局兜底不会被覆盖
 
   # 社交图标 - 你可以按需开关
   [[params.socialIcons]]
@@ -183,7 +170,10 @@ pagination.pagerSize = 10
 
   [params.assets]
     disableHLJS = true
-    favicon = "/favicon.ico"
+    favicon = "/favicon.svg"
+    favicon16x16 = "/favicon.svg"
+    favicon32x32 = "/favicon.svg"
+    apple_touch_icon = "/favicon.svg"
 
   [params.fuseOpts]
     isCaseSensitive = false
