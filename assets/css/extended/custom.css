@@ -216,13 +216,48 @@ code, pre, .highlight {
   border-radius: 4px;
   font-size: 0.9em;
 }
-.post-content pre {
-  border-radius: 10px;
-  padding: 16px 18px;
-  font-size: 0.88rem;
-  line-height: 1.6;
-  border: 1px solid var(--border);
+/* 代码块：彻底干掉 PaperMod 的 .highlight 外层白边/白底，全部统一成卡片化深色容器 */
+.post-content .highlight,
+.post-content .highlight > div,
+.post-content .highlight pre,
+.post-content pre,
+.post-content pre.chroma {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 1.4em 0 !important;
 }
+.post-content .highlight {
+  position: relative;
+  border-radius: 10px !important;
+  background: #f6f7f9 !important;        /* 浅色模式 */
+  overflow: hidden;
+}
+.dark .post-content .highlight {
+  background: #18181b !important;        /* 深色模式 */
+}
+.post-content .highlight pre,
+.post-content pre.chroma,
+.post-content pre {
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 16px 18px !important;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  overflow-x: auto;
+}
+/* 复制按钮换种气质 */
+.post-content .highlight .copy-code {
+  background: rgba(0,0,0,.06);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+.post-content .highlight:hover .copy-code { opacity: 1; }
+.dark .post-content .highlight .copy-code { background: rgba(255,255,255,.08); color: #d4d4d8; }
 .post-content table {
   font-size: 0.93rem;
   border-radius: 8px;
@@ -289,12 +324,18 @@ code, pre, .highlight {
 pre.mermaid {
   background: transparent !important;
   border: none !important;
-  padding: 16px 0 !important;
+  padding: 24px 0 !important;
+  margin: 1.5em 0 !important;
   text-align: center;
-  font-family: inherit !important;
+  font-family: var(--eb-font-sans) !important;
   overflow-x: auto;
+  /* 防止 mermaid 渲染前展示原始文本 */
+  font-size: 0;
 }
 pre.mermaid svg {
   max-width: 100%;
   height: auto;
+  font-size: 14px;
 }
+/* 给节点加一点呼吸感 */
+pre.mermaid .nodeLabel { font-weight: 500 !important; letter-spacing: 0.01em; }

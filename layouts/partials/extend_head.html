@@ -1,23 +1,93 @@
 {{- /* ============================================================
        自定义注入到 <head>。PaperMod 自动包含本文件。
-       —— Mermaid: 页面 DOM 准备好后检测是否存在 .mermaid 块，
-                    存在才动态加载 Mermaid 库，避免每页都拉 100KB JS
+       —— Mermaid: 按需加载，深浅自适应，配色与站点强调色一致
    ============================================================ */ -}}
 <script>
 (function () {
+  // 站点紫粉橙调色板（跟 custom.css 的 --eb-accent 保持一致）
+  const PURPLE        = '#7C3AED';
+  const PURPLE_LIGHT  = '#A78BFA';
+  const PURPLE_SOFT   = '#EDE9FE';
+  const PURPLE_DEEP   = '#1F1B2E';
+  const PINK          = '#EC4899';
+  const TEXT_DARK     = '#27272A';
+  const TEXT_LIGHT    = '#F4F4F5';
+  const BORDER_DARK   = '#3F3F46';
+
+  function isDark() {
+    return document.body.classList.contains('dark') ||
+           document.documentElement.classList.contains('dark');
+  }
+
+  function buildThemeVars(dark) {
+    return dark ? {
+      // 节点
+      primaryColor:       PURPLE_DEEP,
+      primaryTextColor:   TEXT_LIGHT,
+      primaryBorderColor: PURPLE_LIGHT,
+      // 第二色/第三色（多分支时用）
+      secondaryColor:     '#2D2640',
+      secondaryTextColor: TEXT_LIGHT,
+      secondaryBorderColor: PINK,
+      tertiaryColor:      '#3A2A1A',
+      tertiaryTextColor:  TEXT_LIGHT,
+      tertiaryBorderColor:'#F59E0B',
+      // 连线
+      lineColor:          PURPLE_LIGHT,
+      textColor:          TEXT_LIGHT,
+      // 背景透明，跟页面融为一体
+      background:         'transparent',
+      mainBkg:            PURPLE_DEEP,
+      nodeBorder:         PURPLE_LIGHT,
+      clusterBkg:         '#1A1625',
+      clusterBorder:      BORDER_DARK,
+      // 字体
+      fontFamily:         'Inter, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif',
+      fontSize:           '15px',
+    } : {
+      primaryColor:       PURPLE_SOFT,
+      primaryTextColor:   TEXT_DARK,
+      primaryBorderColor: PURPLE,
+      secondaryColor:     '#FCE7F3',
+      secondaryTextColor: TEXT_DARK,
+      secondaryBorderColor: PINK,
+      tertiaryColor:      '#FEF3C7',
+      tertiaryTextColor:  TEXT_DARK,
+      tertiaryBorderColor:'#F59E0B',
+      lineColor:          PURPLE,
+      textColor:          TEXT_DARK,
+      background:         'transparent',
+      mainBkg:            PURPLE_SOFT,
+      nodeBorder:         PURPLE,
+      clusterBkg:         '#FAF5FF',
+      clusterBorder:      '#E9E5F4',
+      fontFamily:         'Inter, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif',
+      fontSize:           '15px',
+    };
+  }
+
   function loadMermaid() {
     if (!document.querySelector('pre.mermaid, .mermaid')) return;
-    const isDark = document.body.classList.contains('dark');
     import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
       .then(({ default: mermaid }) => {
+        const dark = isDark();
         mermaid.initialize({
           startOnLoad: true,
-          theme: isDark ? 'dark' : 'default',
+          theme: 'base',                     // 必须 base 才能用 themeVariables
+          themeVariables: buildThemeVars(dark),
           securityLevel: 'strict',
-          flowchart: { curve: 'basis', padding: 16, useMaxWidth: true }
+          flowchart: { curve: 'basis', padding: 18, useMaxWidth: true, htmlLabels: true },
+          sequence:  { useMaxWidth: true },
         });
+        // 深浅切换后重渲染
+        const obs = new MutationObserver(() => {
+          // 简单粗暴：刷新一下，让 mermaid 用新主题
+          location.reload();
+        });
+        obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
       });
   }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadMermaid);
   } else {
