@@ -1,0 +1,5 @@
+{{- /* Hugo 渲染钩子：把 ```mermaid 代码块转成 mermaid.js 能识别的 <pre class="mermaid">。
+       extend_head.html 里的小段 JS 会在 DOM 准备好后检测 .mermaid 节点并按需加载库。 */ -}}
+<pre class="mermaid">
+{{- .Inner | safeHTML -}}
+</pre>

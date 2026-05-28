@@ -31,10 +31,10 @@ Hugo 唯一的"缺点"是 GitHub Pages 不会自动给你构建，但配合 GitH
 
 ## 整体架构
 
-```
-┌──────────────┐   git push   ┌─────────────────┐   build   ┌──────────────┐
-│  本地 Markdown │ ───────────▶ │ GitHub 仓库 main │ ────────▶ │ GitHub Pages │
-└──────────────┘              └─────────────────┘  Actions  └──────────────┘
+```mermaid
+flowchart LR
+    A["📝 本地 Markdown"] -->|git push| B["🐙 GitHub 仓库 main"]
+    B -->|GitHub Actions 构建| C["🌐 GitHub Pages"]
 ```
 
 写完文章 push，剩下的事 GitHub 自动搞定。不需要本地构建，不需要折腾依赖。
@@ -45,10 +45,10 @@ Hugo 唯一的"缺点"是 GitHub Pages 不会自动给你构建，但配合 GitH
 
 PaperMod 文档里两种都演示过。我选了目录分离：
 
-```
+```text
 content/
-├── zh/posts/xxx.md
-└── en/posts/xxx.md
+  zh/posts/xxx.md
+  en/posts/xxx.md
 ```
 
 理由：以后中英文文章数量肯定不对称，混在一个目录里翻起来累。

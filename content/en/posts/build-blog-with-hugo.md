@@ -32,10 +32,10 @@ Actions workflow takes care of that.
 
 ## The architecture
 
-```
-┌──────────────┐   git push   ┌─────────────────┐   build   ┌──────────────┐
-│ Local .md    │ ───────────▶ │ GitHub repo main│ ────────▶ │ GitHub Pages │
-└──────────────┘              └─────────────────┘  Actions  └──────────────┘
+```mermaid
+flowchart LR
+    A["📝 Local Markdown"] -->|git push| B["🐙 GitHub repo main"]
+    B -->|GitHub Actions build| C["🌐 GitHub Pages"]
 ```
 
 Write, push, done. No local build, no dependency hell.
@@ -46,10 +46,10 @@ Write, push, done. No local build, no dependency hell.
 
 PaperMod docs show both. I went with directory separation:
 
-```
+```text
 content/
-├── zh/posts/xxx.md
-└── en/posts/xxx.md
+  zh/posts/xxx.md
+  en/posts/xxx.md
 ```
 
 Reason: post counts in zh and en will never be balanced, and mixing them in one folder gets

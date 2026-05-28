@@ -284,3 +284,17 @@ code, pre, .highlight {
   background: var(--eb-accent);
   color: #fff;
 }
+
+/* ---------- 10. Mermaid 图表样式 ------------------------------------------ */
+pre.mermaid {
+  background: transparent !important;
+  border: none !important;
+  padding: 16px 0 !important;
+  text-align: center;
+  font-family: inherit !important;
+  overflow-x: auto;
+}
+pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}

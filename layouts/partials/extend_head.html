@@ -1,0 +1,27 @@
+{{- /* ============================================================
+       自定义注入到 <head>。PaperMod 自动包含本文件。
+       —— Mermaid: 页面 DOM 准备好后检测是否存在 .mermaid 块，
+                    存在才动态加载 Mermaid 库，避免每页都拉 100KB JS
+   ============================================================ */ -}}
+<script>
+(function () {
+  function loadMermaid() {
+    if (!document.querySelector('pre.mermaid, .mermaid')) return;
+    const isDark = document.body.classList.contains('dark');
+    import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
+      .then(({ default: mermaid }) => {
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: isDark ? 'dark' : 'default',
+          securityLevel: 'strict',
+          flowchart: { curve: 'basis', padding: 16, useMaxWidth: true }
+        });
+      });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadMermaid);
+  } else {
+    loadMermaid();
+  }
+})();
+</script>
